@@ -8,9 +8,13 @@ import {
   Typography,
 } from "@mui/material";
 import React, { FunctionComponent } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { RootState } from "../../../../data/store";
+import {
+  changeProductQuantity,
+  removeProductFromCart,
+} from "../../utils/cartManagement";
 
 interface Props {
   product: Product;
@@ -21,15 +25,6 @@ export const SideCard: FunctionComponent<Props> = ({
   product,
 }): JSX.Element => {
   const products = useSelector((state: RootState) => state.cartItemsReducer);
-  const dispatch = useDispatch();
-
-  const removeProductFromCart = (): void => {
-    const newArray = [...products.value];
-
-    const newProductsList = newArray.filter(
-      (prod: Product) => prod.id !== product.id
-    );
-  };
 
   return (
     <Card sx={{ position: "relative", backgroundColor: "primary.main", pr: 8 }}>
@@ -55,15 +50,26 @@ export const SideCard: FunctionComponent<Props> = ({
           <Typography>${product.price}</Typography>
           <Typography>{product.title}</Typography>
           <Stack direction="row">
-            <Button sx={{ color: "white" }}>{"-"}</Button>
+            <Button
+              sx={{ color: "white" }}
+              onClick={() => changeProductQuantity(+1, products, product.id)}
+            >
+              {"+"}
+            </Button>
             <Typography sx={{ p: "0 1rem", alignSelf: "center" }}>
               {product.quantity}
             </Typography>
-            <Button sx={{ color: "white" }}>{"+"}</Button>
+            <Button
+              sx={{ color: "white" }}
+              onClick={() => changeProductQuantity(-1, products, product.id)}
+              disabled={product.quantity === 1}
+            >
+              {"-"}
+            </Button>
           </Stack>
         </Stack>
         <IconButton
-          onClick={removeProductFromCart}
+          onClick={() => removeProductFromCart(products, product.id)}
           sx={{
             position: "absolute",
             top: 0,

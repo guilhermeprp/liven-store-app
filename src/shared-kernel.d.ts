@@ -4,7 +4,7 @@ type Product = {
   price: number;
   quantity: number;
   title: string;
-  rating: Rating;
+  rating?: Rating;
 };
 
 type Rating = {

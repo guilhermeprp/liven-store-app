@@ -7,3 +7,24 @@
 body {
   overflow-x: hidden;
 }
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #07101a;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #58606b;
+  border-radius: 3px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #737d8c;
+}

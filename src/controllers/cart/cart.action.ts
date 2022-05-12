@@ -20,17 +20,3 @@ export const setCartProducts = (cart: Product[]) => {
     value: cart,
   };
 };
-
-export const decrementProductCount = (id: string) => {
-  return {
-    type: "DECREMENT_PRODUCT_COUNT",
-    value: id,
-  };
-};
-
-export const incrementProductCount = (id: string) => {
-  return {
-    type: "INCREMENT_PRODUCT_COUNT",
-    value: id,
-  };
-};

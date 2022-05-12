@@ -15,10 +15,6 @@ export function cartItemsReducer(state = initialCartState, action: any) {
       return action.value;
     case "SET_CART_PRODUCTS":
       return action.value;
-    case "DECREMENT_PRODUCT_COUNT":
-      return action.value;
-    case "INCREMENT_PRODUCT_COUNT":
-      return action.value;
     default:
       return state;
   }

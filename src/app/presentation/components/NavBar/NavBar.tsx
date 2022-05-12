@@ -30,14 +30,18 @@ export default function NavBar(): ReactElement {
 
   const cartDropStyles = {
     ...(open
-      ? { maxWidth: "100vw", maxHeight: "100vh", padding: "1rem" }
-      : { maxWidth: "0", maxHeight: "0" }),
+      ? {
+          maxWidth: "100vw",
+          maxHeight: "70vh",
+          padding: "1rem",
+          overflow: "hidden auto",
+        }
+      : { maxWidth: "0", maxHeight: "0", overflow: "hidden" }),
     position: "absolute",
     top: "calc(100% - 5px)",
     right: "1.5rem",
     borderRadius: "0.3rem",
     backgroundColor: "primary.main",
-    overflow: "hidden",
     transition: "0.6s",
   };
 
@@ -72,13 +76,15 @@ export default function NavBar(): ReactElement {
             </Badge>
           </IconButton>
 
-          <Box sx={cartDropStyles}>
-            <Stack gap={1}>
-              {products.map((product: Product) => (
-                <SideCard product={product} key={product.id} />
-              ))}
-            </Stack>
-          </Box>
+          {products.length > 0 && (
+            <Box sx={cartDropStyles}>
+              <Stack gap={1}>
+                {products.map((product: Product) => (
+                  <SideCard product={product} key={product.id} />
+                ))}
+              </Stack>
+            </Box>
+          )}
         </Box>
       </Toolbar>
     </AppBar>

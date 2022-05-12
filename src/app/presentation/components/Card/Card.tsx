@@ -28,7 +28,7 @@ interface Props {
 const Card: FunctionComponent<Props> = ({ product }): JSX.Element => {
   const dispatch: AppDispatch = useDispatch();
 
-  const addToCart = (productInfos: any) => {
+  const addToCart = (productInfos: Product) => {
     const cart = getLocalStorage("cart");
 
     if (checkDuplicatedItems(cart, "id", product.id)) return;
@@ -84,6 +84,7 @@ const Card: FunctionComponent<Props> = ({ product }): JSX.Element => {
           sx={{
             backgroundColor: "text.primary",
             width: "100%",
+            height: "284px",
             p: 2,
             border: "1rem solid",
             borderColor: "primary.main",
@@ -92,11 +93,15 @@ const Card: FunctionComponent<Props> = ({ product }): JSX.Element => {
         >
           <CardMedia
             image={product.image}
-            sx={{ objectFit: "contain", height: 284 }}
+            sx={{
+              backgroundSize: "contain",
+              width: "100%",
+              height: "100%",
+            }}
           />
         </Box>
-        <CardContent sx={{ width: "100%", height: "100%" }}>
-          <Stack sx={{ height: "inherit" }}>
+        <CardContent sx={{ width: "100%", flex: 1 }}>
+          <Stack sx={{ height: "100%" }}>
             <Box>
               <Box sx={{ display: "flex" }}>
                 <Typography variant="body1" sx={{ lineHeight: "1" }}>
@@ -110,13 +115,15 @@ const Card: FunctionComponent<Props> = ({ product }): JSX.Element => {
             </Box>
 
             <Box sx={{ mt: "auto", display: "flex" }}>
-              {productRating(Math.round(parseFloat(product.rating.rate))).map(
-                (star: any) => {
-                  return star;
-                }
-              )}
+              {productRating(
+                Math.round(
+                  parseFloat(product.rating ? product.rating.rate : "0")
+                )
+              ).map((star) => {
+                return star;
+              })}
               <Typography variant="body2" sx={{ ml: 1, lineHeight: "1.5" }}>
-                {product.rating.count}
+                {product.rating?.count}
               </Typography>
             </Box>
           </Stack>
