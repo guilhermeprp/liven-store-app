@@ -1,11 +1,15 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { loadingState } from "../controllers/loading/loading.reducer";
-import { countCartItemsReducer } from "../controllers/cart/cart.reducer";
+import {
+  cartItemsReducer,
+  countCartItemsReducer,
+} from "../controllers/cart/cart.reducer";
 import { manageProductsData } from "../controllers/products/products.reducer";
 
 export const store = configureStore({
   reducer: {
     countCartItemsReducer: countCartItemsReducer,
+    cartItemsReducer: cartItemsReducer,
     loadingState: loadingState,
     manageProductsData: manageProductsData,
   },

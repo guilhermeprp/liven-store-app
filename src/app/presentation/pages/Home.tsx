@@ -43,7 +43,7 @@ export default function Home(): ReactElement {
           gap={2}
           sx={{ flexWrap: "wrap", maxWidth: 1190, m: "0 auto", pt: "3rem" }}
         >
-          {productsData.value.map((product: any) => (
+          {productsData.map((product: Product) => (
             <Card key={product.id} product={product} />
           ))}
         </Stack>

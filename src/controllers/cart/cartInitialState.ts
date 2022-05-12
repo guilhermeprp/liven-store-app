@@ -1,3 +1,7 @@
 import { getLocalStorage } from "../../infra/localStorage/getLocalStorage";
 
-export const initialState = { value: getLocalStorage("cart").length };
+const cartStorage = getLocalStorage("cart");
+
+export const initialCartState = cartStorage;
+
+export const initialCountState = cartStorage.length;

@@ -14,19 +14,32 @@ import * as Icon from "@mui/icons-material";
 import { Dropdown } from "../Dropdown/Dropdown";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../../data/store";
-import { refreshCount } from "../../../../controllers/cart/cart.action";
-import { getLocalStorage } from "../../../../infra/localStorage/getLocalStorage";
+import { SideCard } from "../SideCard/SideCard";
 
 export default function NavBar(): ReactElement {
-  const counter = useSelector(
+  const products = useSelector((state: RootState) => state.cartItemsReducer);
+  const countItems = useSelector(
     (state: RootState) => state.countCartItemsReducer
   );
 
-  const [first, setfirst] = useState([]);
+  console.log(products);
 
-  const products = () => setfirst(getLocalStorage("cart"));
+  const [open, setOpen] = useState(false);
 
   const dispatch = useDispatch();
+
+  const cartDropStyles = {
+    ...(open
+      ? { maxWidth: "100vw", maxHeight: "100vh", padding: "1rem" }
+      : { maxWidth: "0", maxHeight: "0" }),
+    position: "absolute",
+    top: "calc(100% - 5px)",
+    right: "1.5rem",
+    borderRadius: "0.3rem",
+    backgroundColor: "primary.main",
+    overflow: "hidden",
+    transition: "0.6s",
+  };
 
   return (
     <AppBar id="mainNav" sx={{ backgroundColor: "primary.dark" }}>
@@ -52,27 +65,19 @@ export default function NavBar(): ReactElement {
         <Box>
           <IconButton
             sx={{ color: "primary.contrastText" }}
-            onClick={() => products()}
+            onClick={() => setOpen((state) => !state)}
           >
-            <Badge badgeContent={counter.value} color="error">
+            <Badge badgeContent={countItems} color="error">
               <Icon.ShoppingCart />
             </Badge>
           </IconButton>
 
-          <Box
-            sx={{
-              position: "absolute",
-              top: "100%",
-              right: 0,
-              backgroundColor: "primary.dark",
-            }}
-          >
-            {first.map((product: any) => (
-              <Stack key={product.id}>
-                <Typography>{product.price}</Typography>
-                <Typography>{product.title}</Typography>
-              </Stack>
-            ))}
+          <Box sx={cartDropStyles}>
+            <Stack gap={1}>
+              {products.map((product: Product) => (
+                <SideCard product={product} key={product.id} />
+              ))}
+            </Stack>
           </Box>
         </Box>
       </Toolbar>

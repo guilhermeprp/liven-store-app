@@ -6,15 +6,14 @@ import { setProductsData } from "../controllers/products/products.action";
 import { setSessionStorage } from "./sessionStorage/setSessionStorage";
 
 export const loadProducts = async () => {
-  const productsData = store.getState().manageProductsData;
   const sessionProducts = getSessionStorage("products");
 
-  if (sessionProducts.length === 0) {
+  if (!sessionProducts.length) {
     try {
       const products = await getAllProducts();
 
+      setSessionStorage("products", products.data);
       store.dispatch(setProductsData(products.data));
-      setSessionStorage("products", productsData.value);
 
       setTimeout(() => {
         store.dispatch(loadingDone());

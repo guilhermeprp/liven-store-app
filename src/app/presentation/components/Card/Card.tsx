@@ -9,15 +9,23 @@ import {
 } from "@mui/material";
 import StarIcon from "@mui/icons-material/Star";
 import StarOutlineIcon from "@mui/icons-material/StarOutline";
-import React from "react";
+import React, { FunctionComponent } from "react";
 import { useDispatch } from "react-redux";
-import { refreshCount } from "../../../../controllers/cart/cart.action";
+import {
+  getCartProducts,
+  refreshCartCount,
+} from "../../../../controllers/cart/cart.action";
 import { getLocalStorage } from "../../../../infra/localStorage/getLocalStorage";
 import { setLocalStorage } from "../../../../infra/localStorage/setLocalStorage";
 import { checkDuplicatedItems } from "../../utils/checkDuplicates";
 import { AppDispatch } from "../../../../data/store";
 
-function Card({ product }: { product: any }): React.ReactElement {
+interface Props {
+  product: Product;
+  key: string;
+}
+
+const Card: FunctionComponent<Props> = ({ product }): JSX.Element => {
   const dispatch: AppDispatch = useDispatch();
 
   const addToCart = (productInfos: any) => {
@@ -26,10 +34,11 @@ function Card({ product }: { product: any }): React.ReactElement {
     if (checkDuplicatedItems(cart, "id", product.id)) return;
     cart.push(productInfos);
     setLocalStorage("cart", cart);
-    dispatch(refreshCount());
+    dispatch(refreshCartCount());
+    dispatch(getCartProducts());
   };
 
-  const productRating = (rating: any) => {
+  const productRating = (rating: number) => {
     const maxRating = 5;
     const ratingArray = [];
     for (let i = 0; i < maxRating; i++) {
@@ -64,7 +73,7 @@ function Card({ product }: { product: any }): React.ReactElement {
         onClick={() => {
           addToCart({
             id: product.id,
-            img: product.image,
+            image: product.image,
             price: product.price,
             title: product.title,
             quantity: 1,
@@ -82,12 +91,8 @@ function Card({ product }: { product: any }): React.ReactElement {
           }}
         >
           <CardMedia
-            component="img"
-            width="284"
-            height="284"
             image={product.image}
-            sx={{ objectFit: "contain" }}
-            alt={product.title}
+            sx={{ objectFit: "contain", height: 284 }}
           />
         </Box>
         <CardContent sx={{ width: "100%", height: "100%" }}>
@@ -119,6 +124,6 @@ function Card({ product }: { product: any }): React.ReactElement {
       </CardActionArea>
     </CardTemplate>
   );
-}
+};
 
 export default Card;
