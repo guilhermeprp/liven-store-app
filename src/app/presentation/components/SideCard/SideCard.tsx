@@ -10,6 +10,8 @@ import {
 import React, { FunctionComponent } from "react";
 import { useSelector } from "react-redux";
 import DeleteIcon from "@mui/icons-material/Delete";
+import AddIcon from "@mui/icons-material/Add";
+import RemoveIcon from "@mui/icons-material/Remove";
 import { RootState } from "../../../../data/store";
 import {
   changeProductQuantity,
@@ -27,12 +29,14 @@ export const SideCard: FunctionComponent<Props> = ({
   const products = useSelector((state: RootState) => state.cartItemsReducer);
 
   return (
-    <Card sx={{ position: "relative", backgroundColor: "primary.main", pr: 8 }}>
+    <Card
+      sx={{ position: "relative", backgroundColor: "primary.light", pr: 8 }}
+    >
       <Stack direction="row" gap={1}>
         <Box
           sx={{
-            width: "90px",
-            height: "90px",
+            width: "120px",
+            height: "130px",
             p: "10px",
             backgroundColor: "background.default",
           }}
@@ -46,15 +50,15 @@ export const SideCard: FunctionComponent<Props> = ({
             }}
           />
         </Box>
-        <Stack>
+        <Stack sx={{ flex: "1", p: "10px 0" }}>
           <Typography>${product.price}</Typography>
           <Typography>{product.title}</Typography>
-          <Stack direction="row">
+          <Stack direction="row" sx={{ marginTop: "auto" }}>
             <Button
               sx={{ color: "white" }}
               onClick={() => changeProductQuantity(+1, products, product.id)}
             >
-              {"+"}
+              <AddIcon />
             </Button>
             <Typography sx={{ p: "0 1rem", alignSelf: "center" }}>
               {product.quantity}
@@ -64,7 +68,7 @@ export const SideCard: FunctionComponent<Props> = ({
               onClick={() => changeProductQuantity(-1, products, product.id)}
               disabled={product.quantity === 1}
             >
-              {"-"}
+              <RemoveIcon />{" "}
             </Button>
           </Stack>
         </Stack>

@@ -26,12 +26,10 @@ export default function NavBar(): ReactElement {
 
   const [open, setOpen] = useState(false);
 
-  const dispatch = useDispatch();
-
   const cartDropStyles = {
     ...(open
       ? {
-          maxWidth: "100vw",
+          maxWidth: "550px",
           maxHeight: "70vh",
           padding: "1rem",
           overflow: "hidden auto",
@@ -39,7 +37,7 @@ export default function NavBar(): ReactElement {
       : { maxWidth: "0", maxHeight: "0", overflow: "hidden" }),
     position: "absolute",
     top: "calc(100% - 5px)",
-    right: "1.5rem",
+    right: "1.2vw",
     borderRadius: "0.3rem",
     backgroundColor: "primary.main",
     transition: "0.6s",
