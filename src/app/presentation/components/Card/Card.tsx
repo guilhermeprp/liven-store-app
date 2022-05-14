@@ -40,7 +40,7 @@ const Card: FunctionComponent<Props> = ({ product }): JSX.Element => {
 
   const productRating = (rating: number) => {
     const maxRating = 5;
-    const ratingArray = [];
+    const ratingArray: Array<JSX.Element> = [];
     for (let i = 0; i < maxRating; i++) {
       if (i < rating) {
         ratingArray.push(
