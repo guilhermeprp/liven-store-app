@@ -1,11 +1,13 @@
 {
-  "name": "vite-reactts-tailwind-rtk-eslint",
+  "name": "liven-store",
   "version": "0.0.0",
   "scripts": {
     "start": "vite",
     "build": "tsc && vite build",
     "serve": "vite preview",
-    "lint": "eslint \"src/**/*.{js,jsx,ts,tsx}\""
+    "lint": "eslint \"src/**/*.{js,jsx,ts,tsx}\"",
+    "test": "jest",
+    "coverage": "npx jest --coverage"
   },
   "dependencies": {
     "@emotion/react": "^11.9.0",
@@ -22,6 +24,12 @@
     "redux-thunk": "^2.4.1"
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.17.10",
+    "@babel/preset-react": "^7.16.7",
+    "@babel/preset-typescript": "^7.16.7",
+    "@testing-library/jest-dom": "^5.16.4",
+    "@testing-library/react": "^13.2.0",
+    "@testing-library/user-event": "^14.2.0",
     "@types/axios": "^0.14.0",
     "@types/react": "^17.0.33",
     "@types/react-dom": "^17.0.16",
@@ -34,7 +42,23 @@
     "eslint": "^8.1.0",
     "eslint-plugin-react": "^7.26.0",
     "eslint-plugin-react-hooks": "^4.3.0",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^28.1.0",
+    "jest-environment-jsdom": "^28.1.0",
     "typescript": "^4.3.2",
     "vite": "^2.6.13"
+  },
+  "jest": {
+    "testEnvironment": "jsdom",
+    "setupFilesAfterEnv": [
+      "<rootDir>/jest-setup.ts"
+    ],
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx,ts,tsx}",
+      "!src/**/*.d.ts"
+    ],
+    "moduleNameMapper": {
+      "\\.(css|less|scss)$": "identity-obj-proxy"
+    }
   }
 }
