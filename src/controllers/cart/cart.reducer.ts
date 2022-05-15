@@ -1,6 +1,6 @@
 import { initialCartState, initialCountState } from "./cartInitialState";
 
-export function countCartItemsReducer(state = initialCountState, action: any) {
+export function countCartItemsReducer(state = initialCountState, action) {
   switch (action.type) {
     case "REFRESH_COUNT":
       return action.value;
@@ -9,7 +9,7 @@ export function countCartItemsReducer(state = initialCountState, action: any) {
   }
 }
 
-export function cartItemsReducer(state = initialCartState, action: any) {
+export function cartItemsReducer(state = initialCartState, action) {
   switch (action.type) {
     case "GET_CART_PRODUCTS":
       return action.value;

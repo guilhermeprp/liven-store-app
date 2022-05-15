@@ -1,34 +1,23 @@
 import {
-  refreshCartCount,
-  setCartProducts,
-} from "../../../controllers/cart/cart.action";
-import { store } from "../../../data/store";
-import { setLocalStorage } from "../../../infra/localStorage/setLocalStorage";
+  IremoveProductFromCart,
+  IchangeProductQuantity,
+} from "../../../model/cartActions.model";
 
-export const removeProductFromCart = (
-  products: Product[],
-  id: string
-): void => {
+export const removeProduct = ({ cart }: IremoveProductFromCart): Product[] => {
+  const { products, id } = cart;
   const newArray = [...products];
 
-  const newProductsList = newArray.filter((prod: Product) => prod.id !== id);
-
-  setLocalStorage("cart", newProductsList);
-  store.dispatch(setCartProducts(newProductsList));
-  store.dispatch(refreshCartCount());
+  return newArray.filter((prod: Product) => prod.id !== id);
 };
 
-export const changeProductQuantity = (
-  operation: number,
-  products: Product[],
-  id: string
-): void => {
+export const changeProductQuantity = ({
+  operation,
+  cart,
+}: IchangeProductQuantity): Product[] => {
+  const { products, id } = cart;
   const newArray = [...products];
 
-  const newProductsList = newArray.map((prod: Product) =>
+  return newArray.map((prod: Product) =>
     prod.id === id ? { ...prod, quantity: prod.quantity + operation } : prod
   );
-
-  setLocalStorage("cart", newProductsList);
-  store.dispatch(setCartProducts(newProductsList));
 };

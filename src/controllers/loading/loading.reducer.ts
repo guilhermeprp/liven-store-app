@@ -1,11 +1,11 @@
 const initialState = { value: true };
 
-export function loadingState(state = initialState, action: any) {
+export function loadingState(state = initialState, action) {
   switch (action.type) {
     case "DONE":
-      return { value: false };
+      return action.value;
     case "LOADING":
-      return { value: true };
+      return action.value;
     default:
       return state;
   }

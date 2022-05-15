@@ -10,7 +10,7 @@ function Loading() {
         alignItems: "center",
         width: "100vw",
         height: "100vh",
-        backgroundColor: "primary.main",
+        backgroundColor: "primary.dark",
       }}
     >
       <CircularProgress color="secondary" size="20vw" />

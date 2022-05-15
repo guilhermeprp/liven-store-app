@@ -11,3 +11,8 @@ type Rating = {
   count: string;
   rate: string;
 };
+
+type Cart = {
+  products: Product[];
+  id: string;
+};
