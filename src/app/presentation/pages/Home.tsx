@@ -47,7 +47,7 @@ export default function Home(): ReactElement {
             justifyContent: "center",
             maxWidth: 1190,
             m: "0 auto",
-            p: "1.5rem 0 ",
+            p: "3rem 0 ",
           }}
         >
           {productsData.map((product: Product) => (

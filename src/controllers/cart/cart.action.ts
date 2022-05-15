@@ -1,10 +1,10 @@
+import { getLocalStorage } from "../../infra/localStorage/getLocalStorage";
+import { setLocalStorage } from "../../infra/localStorage/setLocalStorage";
+import { store } from "../../data/store";
 import {
   removeProduct,
   changeProductQuantity,
 } from "../../app/presentation/utils/cartManagement";
-import { store } from "../../data/store";
-import { getLocalStorage } from "../../infra/localStorage/getLocalStorage";
-import { setLocalStorage } from "../../infra/localStorage/setLocalStorage";
 import {
   IremoveProductFromCart,
   IchangeProductQuantity,
