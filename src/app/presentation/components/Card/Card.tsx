@@ -48,8 +48,9 @@ const Card: FunctionComponent<Props> = ({ product }): JSX.Element => {
   };
 
   return (
-    <CardTemplate key={id} sx={cardTemplateStyle}>
+    <CardTemplate id={`card-product-${id}`} key={id} sx={cardTemplateStyle}>
       <Button
+        id={`add-to-cart-${id}`}
         className="add-to-cart"
         sx={addToCartButton}
         onClick={() => {

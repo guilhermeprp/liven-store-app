@@ -23,6 +23,7 @@ function Cart(): JSX.Element {
   return (
     <Box>
       <IconButton
+        id="cart"
         sx={{ color: "primary.contrastText" }}
         onClick={() => setOpen((state) => !state)}
       >

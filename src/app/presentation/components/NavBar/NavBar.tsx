@@ -3,6 +3,8 @@ import Cart from "../Cart/Cart";
 import Logo from "../../../assets/logo.png";
 import React from "react";
 import SideBar from "../SideBar/SideBar";
+import { breakpoint } from "../../../style/breakpoint";
+import { Dropdown } from "../Dropdown/Dropdown";
 import {
   AppBar,
   Box,
@@ -12,8 +14,6 @@ import {
   Stack,
   Toolbar,
 } from "@mui/material";
-import { breakpoint } from "../../../style/breakpoint";
-import { Dropdown } from "../Dropdown/Dropdown";
 
 function NavBar(): JSX.Element {
   const matches = breakpoint(900);

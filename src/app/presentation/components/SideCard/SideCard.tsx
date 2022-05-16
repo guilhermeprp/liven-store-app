@@ -81,6 +81,7 @@ export const SideCard: FunctionComponent<Props> = ({
           </Stack>
         </Stack>
         <IconButton
+          id={`remove-from-cart-${product.id}`}
           onClick={() =>
             updateCart("RemoveProduct", {
               cart: {
