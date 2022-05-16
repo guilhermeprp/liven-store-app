@@ -10,6 +10,7 @@ export const cartDropStyles = (open: boolean): Record<string, string> => ({
   position: "absolute",
   top: "calc(100% - 5px)",
   right: "1.2vw",
+  zIndex: 1,
   borderRadius: "0.3rem",
   backgroundColor: "primary.main",
   boxShadow: "0px 5px 10px rgba(0, 0, 0, 0.4)",
