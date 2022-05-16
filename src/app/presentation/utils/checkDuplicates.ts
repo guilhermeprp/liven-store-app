@@ -1,7 +1,5 @@
 export const checkDuplicatedItems = (
-  array: any[],
+  array: Product[],
   key: string,
   compare: string | number
-) => {
-  return array.some((item) => item[key] === compare);
-};
+) => array.some((item) => item[key] === compare);

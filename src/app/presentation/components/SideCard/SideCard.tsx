@@ -1,3 +1,10 @@
+import AddIcon from "@mui/icons-material/Add";
+import DeleteIcon from "@mui/icons-material/Delete";
+import React, { FunctionComponent } from "react";
+import RemoveIcon from "@mui/icons-material/Remove";
+import { RootState } from "../../../../data/store";
+import { updateCart } from "../../../../controllers/cart/cart.action";
+import { useSelector } from "react-redux";
 import {
   Box,
   Button,
@@ -7,16 +14,17 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import React, { FunctionComponent } from "react";
-import { useSelector } from "react-redux";
-import DeleteIcon from "@mui/icons-material/Delete";
-import AddIcon from "@mui/icons-material/Add";
-import RemoveIcon from "@mui/icons-material/Remove";
-import { RootState } from "../../../../data/store";
 import {
-  changeProductQuantity,
-  removeProductFromCart,
-} from "../../utils/cartManagement";
+  IchangeProductQuantity,
+  IremoveProductFromCart,
+} from "../../../../model/cartActions.model";
+import {
+  sideCardStyle,
+  sideMediaWrapperStyle,
+  sideMediaStyle,
+  sideCardTitleStyle,
+  sideCardDeleteButtonStyle,
+} from "./SideCard.style";
 
 interface Props {
   product: Product;
@@ -26,37 +34,35 @@ interface Props {
 export const SideCard: FunctionComponent<Props> = ({
   product,
 }): JSX.Element => {
-  const products = useSelector((state: RootState) => state.cartItemsReducer);
+  const products: Product[] = useSelector(
+    (state: RootState) => state.cartItemsReducer
+  );
+
+  const productsQuantityAction = (
+    operation: number
+  ): IchangeProductQuantity => ({
+    operation: operation,
+    cart: {
+      products: products,
+      id: product.id,
+    },
+  });
 
   return (
-    <Card
-      sx={{ position: "relative", backgroundColor: "primary.light", pr: 8 }}
-    >
+    <Card sx={sideCardStyle}>
       <Stack direction="row" gap={1}>
-        <Box
-          sx={{
-            width: "120px",
-            height: "130px",
-            p: "10px",
-            backgroundColor: "background.default",
-          }}
-        >
-          <CardMedia
-            image={product.image}
-            sx={{
-              backgroundSize: "contain",
-              height: "100%",
-              width: "100%",
-            }}
-          />
+        <Box sx={sideMediaWrapperStyle}>
+          <CardMedia image={product.image} sx={sideMediaStyle} />
         </Box>
         <Stack sx={{ flex: "1", p: "10px 0" }}>
           <Typography>${product.price}</Typography>
-          <Typography>{product.title}</Typography>
+          <Typography sx={sideCardTitleStyle}>{product.title}</Typography>
           <Stack direction="row" sx={{ marginTop: "auto" }}>
             <Button
               sx={{ color: "white" }}
-              onClick={() => changeProductQuantity(+1, products, product.id)}
+              onClick={() =>
+                updateCart("ChangeProductQuantity", productsQuantityAction(+1))
+              }
             >
               <AddIcon />
             </Button>
@@ -65,21 +71,26 @@ export const SideCard: FunctionComponent<Props> = ({
             </Typography>
             <Button
               sx={{ color: "white" }}
-              onClick={() => changeProductQuantity(-1, products, product.id)}
+              onClick={() =>
+                updateCart("ChangeProductQuantity", productsQuantityAction(-1))
+              }
               disabled={product.quantity === 1}
             >
-              <RemoveIcon />{" "}
+              <RemoveIcon />
             </Button>
           </Stack>
         </Stack>
         <IconButton
-          onClick={() => removeProductFromCart(products, product.id)}
-          sx={{
-            position: "absolute",
-            top: 0,
-            right: 0,
-            color: "primary.contrastText",
-          }}
+          id={`remove-from-cart-${product.id}`}
+          onClick={() =>
+            updateCart("RemoveProduct", {
+              cart: {
+                products: products,
+                id: product.id,
+              },
+            } as IremoveProductFromCart)
+          }
+          sx={sideCardDeleteButtonStyle}
         >
           <DeleteIcon />
         </IconButton>

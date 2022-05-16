@@ -1,26 +1,29 @@
-import { getAllProducts } from "../controllers/products/productsAPI";
+import { error404 } from "../controllers/error/error404.action";
+import { getApi } from "../data/API";
 import { getSessionStorage } from "./sessionStorage/getSessionStorage";
 import { loadingDone } from "../controllers/loading/loading.action";
-import { store } from "../data/store";
 import { setProductsData } from "../controllers/products/products.action";
 import { setSessionStorage } from "./sessionStorage/setSessionStorage";
+import { store } from "../data/store";
 
-export const loadProducts = async () => {
-  const sessionProducts = getSessionStorage("products");
+//Balanceador de carga de requisições ao servidor
+export const loadProducts = async (_endpoint: string) => {
+  const sessionProducts = getSessionStorage(_endpoint);
 
   if (!sessionProducts.length) {
     try {
-      const products = await getAllProducts();
+      const products = await getApi(_endpoint);
 
-      setSessionStorage("products", products.data);
+      setSessionStorage(_endpoint, products.data);
       store.dispatch(setProductsData(products.data));
 
       setTimeout(() => {
         store.dispatch(loadingDone());
       }, 1000);
-    } catch (error) {
+    } catch (error: any) {
       store.dispatch(loadingDone());
-      console.error(error);
+      store.dispatch(error404());
+      throw new Error(error);
     }
     return;
   }
