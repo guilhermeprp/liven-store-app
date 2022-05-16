@@ -42,8 +42,26 @@ This is a [React](https://reactjs.org) + [TypeScript](https://www.typescriptlang
     npm run build
     ```
 
-6. Test your production build.
+6. Unit Test your app.
 
     ```bash
-    npm run serve
+    npm run test
     ```
+
+7. Unit Test your app.
+
+    ```bash
+    npm run test
+    ```
+
+8. E2E test your app.
+   
+   Start your aplications first.
+   ```bash
+   npm start
+   ```
+
+   Then run the test.
+   ```bash
+   npm run e2e
+   ```
