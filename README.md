@@ -42,13 +42,13 @@ This is a [React](https://reactjs.org) + [TypeScript](https://www.typescriptlang
     npm run build
     ```
 
-6. Unit Test your app.
+6. Unit Test.
 
     ```bash
     npm run test
     ```
 
-7. E2E test your app.
+7. E2E test.
    
    Start your aplications first.
    ```bash
