@@ -48,13 +48,7 @@ This is a [React](https://reactjs.org) + [TypeScript](https://www.typescriptlang
     npm run test
     ```
 
-7. Unit Test your app.
-
-    ```bash
-    npm run test
-    ```
-
-8. E2E test your app.
+7. E2E test your app.
    
    Start your aplications first.
    ```bash
